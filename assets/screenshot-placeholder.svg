@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">ComeCheck screenshot placeholder</title>
+  <desc id="desc">Placeholder image for the ComeCheck local-first alert replay journal.</desc>
+  <rect width="1280" height="720" fill="#111827"/>
+  <rect x="72" y="64" width="1136" height="592" rx="16" fill="#f9fafb"/>
+  <rect x="112" y="104" width="1056" height="72" rx="10" fill="#e5e7eb"/>
+  <text x="136" y="150" font-family="Arial, sans-serif" font-size="32" fill="#111827" font-weight="700">ComeCheck</text>
+  <text x="345" y="150" font-family="Arial, sans-serif" font-size="22" fill="#4b5563">Alert = come check. Alert != entry.</text>
+  <rect x="112" y="216" width="310" height="128" rx="10" fill="#dbeafe"/>
+  <rect x="464" y="216" width="310" height="128" rx="10" fill="#dcfce7"/>
+  <rect x="816" y="216" width="310" height="128" rx="10" fill="#fee2e2"/>
+  <text x="136" y="268" font-family="Arial, sans-serif" font-size="20" fill="#1f2937">Pending Reviews</text>
+  <text x="136" y="315" font-family="Arial, sans-serif" font-size="42" fill="#1d4ed8" font-weight="700">7</text>
+  <text x="488" y="268" font-family="Arial, sans-serif" font-size="20" fill="#1f2937">Good Alerts</text>
+  <text x="488" y="315" font-family="Arial, sans-serif" font-size="42" fill="#15803d" font-weight="700">12</text>
+  <text x="840" y="268" font-family="Arial, sans-serif" font-size="20" fill="#1f2937">Missed Moves</text>
+  <text x="840" y="315" font-family="Arial, sans-serif" font-size="42" fill="#b91c1c" font-weight="700">3</text>
+  <rect x="112" y="384" width="1014" height="56" rx="8" fill="#f3f4f6"/>
+  <rect x="112" y="456" width="1014" height="56" rx="8" fill="#f3f4f6"/>
+  <rect x="112" y="528" width="1014" height="56" rx="8" fill="#f3f4f6"/>
+  <text x="136" y="419" font-family="Arial, sans-serif" font-size="20" fill="#374151">BTCUSDT &gt; 65000 - REVIEW_PENDING</text>
+  <text x="136" y="491" font-family="Arial, sans-serif" font-size="20" fill="#374151">ETHUSDT &lt; 3400 - MISSED_MOVE</text>
+  <text x="136" y="563" font-family="Arial, sans-serif" font-size="20" fill="#374151">LINKUSDT &gt; 18.5 - GOOD_ALERT</text>
+</svg>

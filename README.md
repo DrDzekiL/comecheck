@@ -2,6 +2,10 @@
 
 A tiny **local-first alert replay journal** for discretionary traders and market researchers.
 
+**Alert = come check. Alert != entry.**
+
+![ComeCheck screenshot placeholder](assets/screenshot-placeholder.svg)
+
 ## Core Idea
 
 Most trading journals start *after* a trade.
@@ -22,14 +26,14 @@ Did this alert actually matter?
 
 ## What It Does NOT Do
 
-- ❌ Generate trading signals
-- ❌ Place orders or connect to exchanges
-- ❌ Provide financial advice
-- ❌ Store API keys or credentials
-- ❌ Integrate with brokers
-- ❌ Use AI for trade analysis
-- ❌ Connect to Telegram or external services
-- ❌ Require authentication or cloud storage
+- Generate trading signals
+- Place orders or connect to exchanges
+- Provide financial advice
+- Store API keys or credentials
+- Integrate with brokers
+- Use AI for trade analysis
+- Connect to Telegram or external services
+- Require authentication or cloud storage
 
 ## Stack
 
@@ -58,15 +62,22 @@ Then open `http://localhost:8501` in your browser.
 ```
 comecheck/
 ├── README.md              # This file
+├── ROADMAP.md             # Project direction and non-goals
+├── CONTRIBUTING.md        # Local setup and contribution boundaries
 ├── requirements.txt       # Python dependencies
 ├── app.py                 # Streamlit app
 ├── LICENSE                # MIT
 ├── .gitignore
+├── assets/
+│   └── screenshot-placeholder.svg
 ├── data/
-│   └── alerts.jsonl       # Your alert journal (auto-created)
+│   └── .gitkeep           # Keeps data/ in Git; alerts.jsonl is ignored
 └── examples/
     └── sample_alerts.jsonl # Sample data for reference
 ```
+
+`data/alerts.jsonl` is created locally by the app and ignored by Git so user
+journals do not get committed accidentally.
 
 ## Alert Schema
 
