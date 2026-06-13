@@ -45,4 +45,5 @@ Thumbs.db
 
 # Local data (keep structure, ignore content if desired)
 data/*.jsonl
+!data/.gitkeep
 !examples/sample_alerts.jsonl
