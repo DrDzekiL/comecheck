@@ -4,7 +4,7 @@ A tiny **local-first alert replay journal** for discretionary traders and market
 
 **Alert = come check. Alert != entry.**
 
-![ComeCheck screenshot placeholder](assets/screenshot-placeholder.svg)
+![ComeCheck dashboard showing alert statistics and the recent alerts queue](assets/screenshot.png)
 
 ## Core Idea
 
@@ -86,7 +86,7 @@ comecheck/
 ├── LICENSE                # MIT
 ├── .gitignore
 ├── assets/
-│   └── screenshot-placeholder.svg
+│   └── screenshot.png
 ├── data/
 │   └── .gitkeep           # Keeps data/ in Git; alerts.jsonl is ignored
 └── examples/
