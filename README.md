@@ -33,7 +33,7 @@ ComeCheck follows one simple loop. Here's how a single alert moves through it:
 3. **Chart replay** — You pull up your own chart for that asset and time, and replay what the market actually did after the alert. (ComeCheck doesn't fetch charts — you bring your own.)
 4. **Fact** — You write down what objectively happened in **What Happened After** (e.g. "bounced 1.5% then faded back below the level").
 5. **Verdict** — Based on the replay, you assign a verdict: `GOOD_ALERT`, `FALSE_ALERT`, `MISSED_MOVE`, `FAILED_SETUP`, or `CLOSED`.
-6. **Rule update** — Finally, you capture what you learned in **Lesson** and, if it changes how you'll act next time, a **Rule Update** (e.g. "only trust support bounces with a volume spike").
+6. **Rule update** — Finally, you capture what you learned in **Lesson** and, if it changes how you'll act next time, a **Rule Update** (e.g. "review support bounces with and without volume separately next time").
 
 ```
 alert fired → review pending → chart replay → fact → verdict → rule update
