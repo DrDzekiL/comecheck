@@ -24,6 +24,23 @@ Did this alert actually matter?
 - **Dashboard**: Quick view of alert statistics and pending review queue
 - **Export**: Selected alerts as Markdown for further analysis
 
+## Example Workflow
+
+ComeCheck follows one simple loop. Here's how a single alert moves through it:
+
+1. **Alert fired** — An alert triggers (e.g. BTC/USD touches your 42,500 support level). You record it in the **Add Alert** tab: asset, level, direction, alert type, trigger time, price at trigger, plus any tags or notes. The alert starts with the verdict `PENDING_REVIEW`.
+2. **Review pending** — Later, you open the **Review Queue** tab and pick the pending alert. First question: *was I even available when it fired?*
+3. **Chart replay** — You pull up your own chart for that asset and time, and replay what the market actually did after the alert. (ComeCheck doesn't fetch charts — you bring your own.)
+4. **Fact** — You write down what objectively happened in **What Happened After** (e.g. "bounced 1.5% then faded back below the level").
+5. **Verdict** — Based on the replay, you assign a verdict: `GOOD_ALERT`, `FALSE_ALERT`, `MISSED_MOVE`, `FAILED_SETUP`, or `CLOSED`.
+6. **Rule update** — Finally, you capture what you learned in **Lesson** and, if it changes how you'll act next time, a **Rule Update** (e.g. "review support bounces with and without volume separately next time").
+
+```
+alert fired → review pending → chart replay → fact → verdict → rule update
+```
+
+Over time, this loop turns a stream of noisy alerts into a record of which alerts actually mattered — and why.
+
 ## What It Does NOT Do
 
 - Generate trading signals
