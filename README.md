@@ -45,7 +45,7 @@ Did this alert actually matter?
 
 ```bash
 # Clone repo
-git clone <repository>
+git clone https://github.com/DrDzekiL/comecheck.git
 cd comecheck
 
 # Install dependencies
@@ -94,10 +94,9 @@ journals do not get committed accidentally.
   "notes": "Strong rejection at 42k support",
   "was_user_available": null,
   "what_happened_after": null,
-  "verdict": null,
+  "verdict": "PENDING_REVIEW",
   "lesson": null,
   "rule_update": null,
-  "status": "PENDING_REVIEW",
   "created_at": "2025-06-13T14:35:00Z",
   "updated_at": "2025-06-13T14:35:00Z"
 }
@@ -105,6 +104,7 @@ journals do not get committed accidentally.
 
 ## Verdicts
 
+- **PENDING_REVIEW**: Initial/default state for a newly recorded alert, before it has been reviewed
 - **GOOD_ALERT**: Signal was valid, user was available, setup worked as expected
 - **FALSE_ALERT**: Alert triggered but context was wrong or invalidated quickly
 - **MISSED_MOVE**: Alert was valid but you weren't paying attention
