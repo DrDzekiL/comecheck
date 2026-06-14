@@ -1,20 +1,43 @@
 # ComeCheck
 
-A tiny **local-first alert replay journal** for discretionary traders and market researchers.
+A tiny **local-first alert replay journal** for discretionary traders and market researchers. It helps you answer one question:
+
+## Did this alert actually matter?
 
 **Alert = come check. Alert != entry.**
 
+> **Local-first. No accounts. No API keys. No orders. No signals. Not financial advice.**
+
 ![ComeCheck dashboard showing alert statistics and the recent alerts queue](assets/screenshot.png)
+
+## Quick Start
+
+```bash
+git clone https://github.com/DrDzekiL/comecheck.git
+cd comecheck
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Then open `http://localhost:8501` in your browser.
+
+## Who Is This For?
+
+**For:**
+- Discretionary traders who act on alerts (e.g. TradingView)
+- Market students and researchers reviewing alerts after the fact
+- Anyone who wants to know which of their alerts were actually useful
+
+**Not for:**
+- Signal seekers or copy-trading
+- Automated entry/exit or trading bots
+- Exchange or broker API integrations
 
 ## Core Idea
 
 Most trading journals start *after* a trade.
 
 **ComeCheck starts *after* an alert.**
-
-### One Question
-
-Did this alert actually matter?
 
 ## What It Does
 
@@ -57,22 +80,6 @@ Over time, this loop turns a stream of noisy alerts into a record of which alert
 - **Python 3.10+**
 - **Streamlit** – simple local web interface
 - **JSONL** – local file storage (data/alerts.jsonl)
-
-## Installation & Usage
-
-```bash
-# Clone repo
-git clone https://github.com/DrDzekiL/comecheck.git
-cd comecheck
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run
-streamlit run app.py
-```
-
-Then open `http://localhost:8501` in your browser.
 
 ## Project Structure
 
