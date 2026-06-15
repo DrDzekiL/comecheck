@@ -7,9 +7,12 @@ Alert → Review → Verdict → Learn
 import streamlit as st
 import json
 import uuid
+import csv
+import io
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
+
 
 # ============================================================================
 # CONFIG & PATHS
@@ -153,6 +156,52 @@ def alert_to_markdown(alert: Dict) -> str:
 *Created: {alert['created_at']}*
 """
     return md
+
+
+
+def alerts_to_csv(alerts: List[Dict]) -> str:
+    """Convert reviewed alerts to CSV format."""
+    if not alerts:
+        return ""
+
+    fieldnames = [
+        "id",
+        "asset",
+        "direction",
+        "trigger_time",
+        "level",
+        "price_at_trigger",
+        "alert_type",
+        "tags",
+        "notes",
+        "was_user_available",
+        "what_happened_after",
+        "verdict",
+        "lesson",
+        "rule_update",
+        "created_at",
+        "updated_at",
+    ]
+
+    output = io.StringIO()
+    writer = csv.DictWriter(output, fieldnames=fieldnames)
+    writer.writeheader()
+
+    for alert in alerts:
+        row = {}
+        for field in fieldnames:
+            value = alert.get(field, "")
+
+            if isinstance(value, list):
+                value = ", ".join(value)
+
+            row[field] = value
+
+        writer.writerow(row)
+
+    return output.getvalue()
+
+
 
 # ============================================================================
 # STREAMLIT UI
@@ -340,55 +389,74 @@ with tab3:
 
 with tab4:
     st.subheader("Export Alerts")
-    
+
     alerts = load_alerts()
-    
+
     if not alerts:
         st.info("No alerts to export")
     else:
         # Filter options
         col1, col2, col3 = st.columns(3)
-        
+
         with col1:
             filter_asset = st.text_input("Filter by asset", placeholder="BTC, SPY...")
         with col2:
             filter_verdict = st.selectbox("Filter by verdict", ["All"] + VERDICTS)
         with col3:
             filter_direction = st.selectbox("Filter by direction", ["All"] + DIRECTIONS)
-        
+
         # Apply filters
         filtered = alerts
         if filter_asset:
-            filtered = [a for a in filtered if filter_asset.upper() in a['asset'].upper()]
+            filtered = [a for a in filtered if filter_asset.upper() in a["asset"].upper()]
         if filter_verdict != "All":
-            filtered = [a for a in filtered if a.get('verdict') == filter_verdict]
+            filtered = [a for a in filtered if a.get("verdict") == filter_verdict]
         if filter_direction != "All":
-            filtered = [a for a in filtered if a['direction'] == filter_direction]
-        
+            filtered = [a for a in filtered if a["direction"] == filter_direction]
+
         st.write(f"**{len(filtered)} alert(s) match filters**")
-        
+
+        reviewed_alerts = [
+            alert for alert in filtered
+            if alert.get("verdict") != "PENDING_REVIEW"
+        ]
+
+        st.write(f"**{len(reviewed_alerts)} reviewed alert(s) available for CSV export**")
+
+        if reviewed_alerts:
+            csv_export = alerts_to_csv(reviewed_alerts)
+
+            st.download_button(
+                "📊 Download Reviewed Alerts CSV",
+                csv_export,
+                "reviewed_alerts.csv",
+                "text/csv",
+            )
+        else:
+            st.info("No reviewed alerts available for CSV export.")
+
         # Select alerts to export
         selected_ids = []
         for alert in filtered:
             if st.checkbox(
                 f"{alert['asset']} {alert['direction']} @ {alert['level']} — {alert.get('verdict', 'PENDING')}",
-                key=f"export_{alert['id']}"
+                key=f"export_{alert['id']}",
             ):
-                selected_ids.append(alert['id'])
-        
+                selected_ids.append(alert["id"])
+
         if selected_ids:
             # Generate markdown
             markdown_export = "# ComeCheck Export\n\n"
             for alert in alerts:
-                if alert['id'] in selected_ids:
+                if alert["id"] in selected_ids:
                     markdown_export += alert_to_markdown(alert)
                     markdown_export += "\n\n---\n\n"
-            
+
             st.download_button(
                 "📥 Download as Markdown",
                 markdown_export,
                 "comecheck_export.md",
-                "text/markdown"
+                "text/markdown",
             )
 
 # ============================================================================
