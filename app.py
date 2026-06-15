@@ -18,6 +18,7 @@ from typing import List, Dict, Optional
 DATA_DIR = Path("data")
 DATA_DIR.mkdir(exist_ok=True)
 ALERTS_FILE = DATA_DIR / "alerts.jsonl"
+SAMPLE_ALERTS_FILE = Path("examples/sample_alerts.jsonl")
 
 VERDICTS = [
     "PENDING_REVIEW",
@@ -58,6 +59,32 @@ def save_alert(alert: Dict) -> None:
     """Append alert to JSONL file."""
     with open(ALERTS_FILE, "a") as f:
         f.write(json.dumps(alert) + "\n")
+
+def import_sample_alerts() -> int:
+    """Import sample alerts from examples/sample_alerts.jsonl without duplicates."""
+    if not SAMPLE_ALERTS_FILE.exists():
+        return 0
+
+    existing_alerts = load_alerts()
+    existing_ids = {alert.get("id") for alert in existing_alerts}
+
+    imported_count = 0
+
+    with open(SAMPLE_ALERTS_FILE, "r") as f:
+        for line in f:
+            if not line.strip():
+                continue
+
+            alert = json.loads(line)
+
+            if alert.get("id") in existing_ids:
+                continue
+
+            save_alert(alert)
+            existing_ids.add(alert.get("id"))
+            imported_count += 1
+
+    return imported_count
 
 def update_alert(alert_id: str, updated_fields: Dict) -> None:
     """Update an alert (rewrite entire file)."""
@@ -172,6 +199,14 @@ tab1, tab2, tab3, tab4 = st.tabs(["Add Alert", "Review Queue", "Dashboard", "Exp
 
 with tab1:
     st.subheader("Record a New Alert")
+
+    if st.button("📥 Import Sample Alerts"):
+        imported_count = import_sample_alerts()
+
+        if imported_count:
+            st.success(f"Imported {imported_count} sample alert(s).")
+        else:
+            st.info("No new sample alerts imported.")
     
     col1, col2 = st.columns(2)
     
@@ -180,7 +215,7 @@ with tab1:
         direction = st.selectbox("Direction", DIRECTIONS)
         level = st.number_input("Alert Level", step=0.1)
         price_at_trigger = st.number_input("Price at Trigger", step=0.1)
-    
+
     with col2:
         alert_type = st.selectbox("Alert Type", ALERT_TYPES)
         trigger_time = st.text_input(
