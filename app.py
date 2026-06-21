@@ -10,6 +10,7 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
+from datetime import datetime
 
 # ============================================================================
 # CONFIG & PATHS
@@ -379,16 +380,28 @@ with tab4:
         if selected_ids:
             # Generate markdown
             markdown_export = "# ComeCheck Export\n\n"
+            csv_export = "id,asset,level,direction,alert_type,trigger_time,price_at_trigger,tags,notes,what_happened_after,verdict,lesson,rule_update,created_at\n"
             for alert in alerts:
                 if alert['id'] in selected_ids:
                     markdown_export += alert_to_markdown(alert)
                     markdown_export += "\n\n---\n\n"
+                    dt_trigger_time = datetime.fromisoformat(alert['trigger_time'].replace("Z", "+00:00"))
+                    formatted_trigger_time = dt_trigger_time.strftime("%Y-%m-%d %H:%M:%S")
+                    dt_created_at = datetime.fromisoformat(alert['created_at'].replace("Z", "+00:00"))
+                    formatted_created_at = dt_created_at.strftime("%Y-%m-%d %H:%M:%S")
+                    csv_export += f"{alert['id']},{alert['asset']},{alert['level']},{alert['direction']},{alert['alert_type']},{formatted_trigger_time},{alert['price_at_trigger']},{','.join(alert.get('tags', []))},{alert.get('notes', '')},{alert.get('what_happened_after', '')},{alert.get('verdict', 'PENDING')},{alert.get('lesson', '')},{alert.get('rule_update', '')},{formatted_created_at}\n"
             
             st.download_button(
                 "📥 Download as Markdown",
                 markdown_export,
                 "comecheck_export.md",
                 "text/markdown"
+            )
+            st.download_button(
+                "📥 Export as Csv",
+                csv_export,
+                "reviewed_alert_export.csv",
+                "text/csv"
             )
 
 # ============================================================================
